@@ -1,0 +1,325 @@
+openapi: 3.0.4
+info:
+  title: pharmacy
+  description: API para administrar una farmacia
+  version: 1.3.0
+  contact:
+    name: RND
+    email: l22140765@queretaro.tecnm.mx
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html 
+
+servers:
+  - url: http//localhost:8080/api/v1
+    description: Ambiente local
+  - url: http//10.124.63.12:8080/api/v1
+    description: Ambiente de pruebas
+  - url: https//api.pharmacy.com/api/v1
+    description: Servidor de produccion
+    
+tags:
+  - name: pharmacys
+    description: "Administra cada una de las sucursales"
+  - name: products
+    description: "Administra los productos y sus cantidades"
+  - name: employes
+    description: "Administra los clientes"
+  - name: sales
+    description: "Administrador de ventas"
+    
+paths:
+  /pharmacys:
+    get:
+      description: obtiene todas las farmacias
+      operationId: getPharmacys
+      tags: 
+        - pharmacys
+      responses:
+        '200':
+          description: se obtubieron toda la informacion de farmacias
+    
+    post:
+      summary: crear nueva farmacia
+      description: crear una nueva sucursal de nuestra cadena farmacias
+      operationId: createPharmacy
+      tags:
+        - pharmacys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pharmacy'
+      responses:
+        '200':
+          description: Sucursal registrada
+          
+  /pharmacys/{idPharmacy}:
+    put:
+      summary: Actualizar datos de una farmacia
+      description: Actualizar los datos de una unica farmacia
+      operationId: updatePharmacy
+      tags:
+        - pharmacys
+      parameters: 
+        - name : idPharmacy
+          in: path
+          description: ID de la sucursal a actualizar
+          required: true
+          schema:
+            type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pharmacy'
+      responses:
+        '200':
+          description: Sucursal actualizada
+    
+    patch:
+      summary: Actualizar un dato de una farmacia
+      description: Actualizar un unico dato de una unica farmacia
+      operationId: patchPharmacy
+      tags:
+        - pharmacys
+      parameters: 
+        - name : idPharmacy
+          in: path
+          description: ID de la sucursal a actualizar
+          required: true
+          schema:
+            type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pharmacyPatch'
+            example: 
+              name: "Farmacia la cruz"
+              addres: "Calle La luz #13"
+      responses:
+        '200':
+          description: dato de sucursal actualizado
+          
+    delete:
+      summary: Eliminar sucursal
+      description: Elimina una sucursal de farmacia
+      operationId: deletePharmacy
+      tags:
+        - pharmacys
+      parameters:
+        - name: idPharmacy
+          in: path
+          description: ID de sucursal a eliminar
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 123
+      responses:
+        '200':
+          description: sucursal eliminada 
+          
+          
+  /employes:
+    get:
+      summary: Obetener todos los empleados
+      description: obtiene todos los datos de los empleados
+      operationId: getEmployes
+      tags: 
+        - employes
+      responses:
+        '200':
+          description: se obtubieron toda la informacion de los empleados
+    
+    post:      
+      summary: registrar empleado
+      description: registrar los datos de un nuevo empleado
+      operationId: createEmploye
+      tags:
+        - employes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/employe'
+      responses:
+        '200':
+          description: Nuevo empleado registrado
+  
+  /employes/{idEmploye}:
+    put:
+      summary: Actualizar datos de un empleado
+      description: Actualizar todos los datos de un empleado
+      operationId: updateEmploye
+      tags:
+        - employes
+      parameters: 
+        - name : idEmploye
+          in: path
+          description: ID de cliente a actualizar
+          required: true
+          schema:
+            type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/employe'
+      responses:
+        '200':
+          description: Datos de empleado actualizados
+    
+    patch:
+      summary: Actualizar dato de empleado
+      description: Actualizar un unico dato de un empleado
+      operationId: patchEmploye
+      tags:
+        - employes
+      parameters: 
+        - name : idEmploye
+          in: path
+          description: ID de empleado a actualizar dato
+          required: true
+          schema:
+            type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/employePatch'
+            example: 
+              name: "Vartolomeo"
+              last_name: "Bell"
+      responses:
+        '200':
+          description: Dato de empleado actualizado
+          
+    delete:
+      summary: Eliminar empleado
+      description: Elimina empleado
+      operationId: deleteEmploye
+      tags:
+        - employes
+      parameters:
+        - name: idEmploye
+          in: path
+          description: ID de empleado a eliminar
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 123
+      responses:
+        '200':
+          description: empleado eliminado exitosamente
+    
+  
+          
+components:
+  schemas:
+    pharmacy:
+      type: object
+      required: 
+        - idPharmacy
+        - name
+        - address
+      properties:
+        idPhharmacy:
+          type: number
+          format: integer
+          pattern: '^[0-9]{1,3}$'
+          example: 123
+        name:
+          type: string
+          minLength: 10
+          maxLength: 30
+          example: "Farmacia corazon"
+        address:
+          type: string
+          minLength: 20
+          maxLength: 50
+          example: "Calle Rosales #65"
+      
+    pharmacyPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 10
+          maxLength: 30
+          example: "Farmacia Cruz"
+        address:
+          type: string
+          minLength: 20
+          maxLength: 50
+          example: "Calle La luz #13"
+          
+    employe:
+      type: object
+      required:
+        - idClient
+        - idPharmacy
+        - name
+        - lastName
+        - phone
+        - typeClient
+      properties:
+        idEmploye:
+          type: number
+          format: integer
+          pattern: '^[0-9]{1,3}$'
+          example: 123
+        idPharmacy:
+          type: number
+          format: integer
+          description: Llave foranea que referencia ID de la tabla pharmacy
+          pattern: '^[0-9]{1,3}$'
+          example: 234
+        name:
+          type: string
+          minLength: 3
+          maxLength: 15
+          example: "Bartolomeo"
+        lastName:
+          type: string
+          minLength: 3
+          maxLength: 25
+          example: "Lee"
+        phone:
+          type: string
+          minLength: 10
+          maxLength: 14
+          example: "4424568932"
+        typeEmploye:
+          type: string
+          description: Tipos de clientes a los ya establecidos
+          enum:
+            - Estandar
+            - Doctor
+            - Medicado
+      
+    employePatch:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 25
+          example: "Vartolomeo"
+        lastName:
+          type: string
+          minLength: 10
+          maxLength: 14
+          example: "Bell"
