@@ -31,14 +31,25 @@ tags:
 paths:
   /pharmacys:
     get:
+      summary: Obtener información de todas las farmacias
       description: obtiene todas las farmacias
       operationId: getPharmacys
       tags: 
         - pharmacys
       responses:
         '200':
-          description: se obtubieron toda la informacion de farmacias
-    
+          description: se obtuvo toda la informacion de las farmacias
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pharmacy'
+              example:
+                  - idPharmacy: 12345
+                    name: "Simi Tech"
+                    dirección: "Av. tecnologico #123"
+                  - idPharmacy: 12345
+                    name: "Simi Tech"
+                    dirección: "Av. tecnologico #123"
     post:
       summary: crear nueva farmacia
       description: crear una nueva sucursal de nuestra cadena farmacias
@@ -52,10 +63,25 @@ paths:
             schema:
               $ref: '#/components/schemas/pharmacy'
       responses:
-        '200':
-          description: Sucursal registrada
+        '201':
+          description: Sucursal registrada correctamente
           
   /pharmacys/{idPharmacy}:
+    get:
+        summary: Obtiene una farmacia por su ID
+        description: obtiene una farmacia en especifico
+        operationId: getPharmacy
+        tags: 
+          - pharmacys
+        responses:
+          '200':
+            description: Información de la farmacia obtenida
+            content:
+              application/json:
+                example:
+                    idPharmacy: 12345
+                    name: "Simi Tech"
+                    dirección: "Av. tecnologico #123"
     put:
       summary: Actualizar datos de una farmacia
       description: Actualizar los datos de una unica farmacia
@@ -77,8 +103,8 @@ paths:
             schema:
               $ref: '#/components/schemas/pharmacy'
       responses:
-        '200':
-          description: Sucursal actualizada
+        '201':
+          description: Sucursal actualizada correctamente
     
     patch:
       summary: Actualizar un dato de una farmacia
@@ -104,8 +130,8 @@ paths:
               name: "Farmacia la cruz"
               addres: "Calle La luz #13"
       responses:
-        '200':
-          description: dato de sucursal actualizado
+        '201':
+          description: datos de sucursal actualizado correctamente
           
     delete:
       summary: Eliminar sucursal
@@ -137,7 +163,23 @@ paths:
       responses:
         '200':
           description: se obtubieron toda la informacion de los empleados
-    
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/employe'
+              example:
+                  - idEmploye: 123
+                    idPharmacy: 234
+                    name: "Bartolomeo"
+                    lastName: "Lee"
+                    phone: "4424568932"
+                    typeEmploye: "Cajero"
+                  - idEmploye: 123
+                    idPharmacy: 2
+                    name: "Pepe"
+                    lastName: "Lee"
+                    phone: "4424568932"
+                    typeEmploye: "Cajero"
     post:      
       summary: registrar empleado
       description: registrar los datos de un nuevo empleado
@@ -151,10 +193,30 @@ paths:
             schema:
               $ref: '#/components/schemas/employe'
       responses:
-        '200':
-          description: Nuevo empleado registrado
+        '201':
+          description: Nuevo empleado registrado correctamente
   
   /employes/{idEmploye}:
+    get:
+      summary: Obetener empleado por su ID
+      description: obtiene la informacion de un empleado en especifico
+      operationId: getEmploye
+      tags: 
+        - employes
+      responses:
+        '200':
+          description: se obtubieron toda la informacion de los empleados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/employe'
+              example:
+                  idEmploye: 123
+                  idPharmacy: 234
+                  name: "Bartolomeo"
+                  lastName: "Lee"
+                  phone: "4424568932"
+                  typeEmploye: "Cajero"
     put:
       summary: Actualizar datos de un empleado
       description: Actualizar todos los datos de un empleado
@@ -176,7 +238,7 @@ paths:
             schema:
               $ref: '#/components/schemas/employe'
       responses:
-        '200':
+        '201':
           description: Datos de empleado actualizados
     
     patch:
@@ -236,7 +298,7 @@ components:
         - name
         - address
       properties:
-        idPhharmacy:
+        idPharmacy:
           type: number
           format: integer
           pattern: '^[0-9]{1,3}$'
@@ -306,9 +368,8 @@ components:
           type: string
           description: Tipos de clientes a los ya establecidos
           enum:
-            - Estandar
+            - Cajero
             - Doctor
-            - Medicado
       
     employePatch:
       type: object
