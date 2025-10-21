@@ -151,7 +151,105 @@ paths:
       responses:
         '200':
           description: sucursal eliminada 
+
+  /products:
+    get:
+      tags:
+        - products
+      summary: Obtiene todos los productos de la farmacia.
+      description: Obtener todos los productos de la farmacia
+      operationId: getProducts
+      responses:
+        '200':
+          description: Obtencion completada
           
+    post:
+      tags:
+        - products
+      summary: Agrega un nuevo producto a la farmacia.
+      operationId: postProduct
+      requestBody:
+        description: Registrar un nuevo producto a la farmacia
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        '200':
+          description: Producto registrado
+          
+  /products/{idProduct}:
+    put:
+      summary: Actualizar datos de un producto
+      description: Actualizar los datos de un producto
+      operationId: updateProduct
+      tags:
+        - products
+      parameters: 
+        - name : idProduct
+          in: path
+          description: ID del producto a actualizar
+          required: true
+          schema:
+            type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        '200':
+          description: Producto actualizado
+          
+    patch:
+      summary: Actualizar dato de un producto
+      description: Actualizar un dato de un producto
+      operationId: patchProduct
+      tags:
+        - products
+      parameters: 
+        - name : idProduct
+          in: path
+          description: ID de producto a actualizar dato
+          required: true
+          schema:
+            type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/productPatch'
+            example: 
+              name: Diclofenaco 250mg
+              description: Antiinflamatorio y analgesico
+      responses:
+        '200':
+          description: Dato de producto actualizado
+          
+    delete:
+      summary: Eliminar producto
+      description: Elimina producto
+      operationId: deleteProduct
+      tags:
+        - products
+      parameters:
+        - name: idProduct
+          in: path
+          description: ID de producto a eliminar
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 123
+      responses:
+        '200':
+          description: producto eliminado exitosamente
+    
+  
           
   /employes:
     get:
@@ -327,6 +425,68 @@ components:
           minLength: 20
           maxLength: 50
           example: "Calle La luz #13"
+
+    product:
+      type: object
+      required: 
+        - idProduct
+        - name
+        - description
+        - price
+        - stock
+        - expiration
+        - prescription
+      properties:
+        idProduct:
+          type: number
+          format: integer
+          pattern: '^[0-9]{1,3}$'
+          example: 123
+        name:
+          title: "Nombre comercial del producto"
+          type: string
+          minLength: 10
+          maxLength: 100
+          example: "Aspirina 500mg"
+        description:
+          title: "Descripción, indicaciones o composición del producto"
+          type: string
+          minLength: 50
+          maxLength: 500
+          example: "Analgésico y antipirético para el alivio del dolor y la fiebre"
+        price:
+          title: "Precio unitario de venta"
+          type: number
+          format: float
+          example: "45.50"
+        stock:
+          title: "Cantidad de unidades en inventario"
+          type: integer
+          example: "250"
+        expiration:
+          title: "Fecha de caducidad del producto"
+          type: string
+          format: date
+          example: "2026-12-31"
+        prescription:
+          title: "¿Requiere receta médica para su venta?"
+          type: boolean
+          example: "true"
+          
+    productPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 10
+          maxLength: 100
+          example: "Diclofenaco 250mg"
+        description:
+          type: string
+          minLength: 50
+          maxLength: 500
+          example: "Antiinflamatorio y analgesico"
+
           
     employe:
       type: object
