@@ -23,7 +23,7 @@ tags:
     description: "Administra cada una de las sucursales"
   - name: products
     description: "Administra los productos y sus cantidades"
-  - name: employes
+  - name: employees
     description: "Administra los clientes"
   - name: sales
     description: "Administrador de ventas"
@@ -251,63 +251,63 @@ paths:
     
   
           
-  /employes:
+  /employees:
     get:
       summary: Obetener todos los empleados
       description: obtiene todos los datos de los empleados
-      operationId: getEmployes
+      operationId: getEmployees
       tags: 
-        - employes
+        - employees
       responses:
         '200':
           description: se obtubieron toda la informacion de los empleados
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/employe'
+                $ref: '#/components/schemas/employee'
               example:
-                  - idEmploye: 123
+                  - idEmployee: 123
                     idPharmacy: 234
                     name: "Bartolomeo"
                     lastName: "Lee"
                     phone: "4424568932"
-                    typeEmploye: "Cajero"
-                  - idEmploye: 123
+                    typeEmployee: "Cajero"
+                  - idEmployee: 123
                     idPharmacy: 2
                     name: "Pepe"
                     lastName: "Lee"
                     phone: "4424568932"
-                    typeEmploye: "Cajero"
+                    typeEmployee: "Cajero"
     post:      
       summary: registrar empleado
       description: registrar los datos de un nuevo empleado
-      operationId: createEmploye
+      operationId: createEmployee
       tags:
-        - employes
+        - employees
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/employe'
+              $ref: '#/components/schemas/employee'
       responses:
         '201':
           description: Nuevo empleado registrado correctamente
   
-  /employes/{idEmploye}:
+  /employees/{idEmployee}:
     get:
       summary: Obetener empleado por su ID
       description: obtiene la informacion de un empleado en especifico
-      operationId: getEmploye
+      operationId: getEmployee
       tags: 
-        - employes
+        - employees
       responses:
         '200':
           description: se obtubieron toda la informacion de los empleados
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/employe'
+                $ref: '#/components/schemas/employee'
               example:
                   idEmploye: 123
                   idPharmacy: 234
@@ -318,11 +318,11 @@ paths:
     put:
       summary: Actualizar datos de un empleado
       description: Actualizar todos los datos de un empleado
-      operationId: updateEmploye
+      operationId: updateEmployee
       tags:
-        - employes
+        - employees
       parameters: 
-        - name : idEmploye
+        - name : idEmployee
           in: path
           description: ID de cliente a actualizar
           required: true
@@ -334,7 +334,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/employe'
+              $ref: '#/components/schemas/employee'
       responses:
         '201':
           description: Datos de empleado actualizados
@@ -342,11 +342,11 @@ paths:
     patch:
       summary: Actualizar dato de empleado
       description: Actualizar un unico dato de un empleado
-      operationId: patchEmploye
+      operationId: patchEmployee
       tags:
-        - employes
+        - employees
       parameters: 
-        - name : idEmploye
+        - name : idEmployee
           in: path
           description: ID de empleado a actualizar dato
           required: true
@@ -358,7 +358,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/employePatch'
+              $ref: '#/components/schemas/employeePatch'
             example: 
               name: "Vartolomeo"
               last_name: "Bell"
@@ -369,11 +369,11 @@ paths:
     delete:
       summary: Eliminar empleado
       description: Elimina empleado
-      operationId: deleteEmploye
+      operationId: deleteEmployee
       tags:
-        - employes
+        - employees
       parameters:
-        - name: idEmploye
+        - name: idEmployee
           in: path
           description: ID de empleado a eliminar
           required: true
@@ -488,17 +488,17 @@ components:
           example: "Antiinflamatorio y analgesico"
 
           
-    employe:
+    employee:
       type: object
       required:
-        - idClient
+        - idEmployee
         - idPharmacy
         - name
         - lastName
         - phone
-        - typeClient
+        - typeEmployee
       properties:
-        idEmploye:
+        idEmployee:
           type: number
           format: integer
           pattern: '^[0-9]{1,3}$'
@@ -524,14 +524,16 @@ components:
           minLength: 10
           maxLength: 14
           example: "4424568932"
-        typeEmploye:
+        typeEmployee:
           type: string
-          description: Tipos de clientes a los ya establecidos
+          description: Tipos de empleados a los ya establecidos
           enum:
             - Cajero
+            - Axuliar
+            - Farmaceutico
             - Doctor
       
-    employePatch:
+    employeePatch:
       type: object
       properties:
         name:
