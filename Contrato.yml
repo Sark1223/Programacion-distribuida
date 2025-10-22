@@ -29,7 +29,7 @@ tags:
     description: "Administrador de ventas"
     
 paths:
-  /pharmacys:
+  /pharmacy:
     get:
       summary: Obtener información de todas las farmacias
       description: obtiene todas las farmacias
@@ -50,6 +50,22 @@ paths:
                   - idPharmacy: 12345
                     name: "Simi Tech"
                     dirección: "Av. tecnologico #123"
+        '404':
+          description: Farmacias no obtenidas
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      format: int32
+                      description: Código HTTP 404
+                    message:
+                      type: string
+                      description:  No se encuentran farmacias
+    
+              
     post:
       summary: crear nueva farmacia
       description: crear una nueva sucursal de nuestra cadena farmacias
@@ -66,22 +82,45 @@ paths:
         '201':
           description: Sucursal registrada correctamente
           
-  /pharmacys/{idPharmacy}:
+  /pharmacy/{idPharmacy}:
     get:
-        summary: Obtiene una farmacia por su ID
-        description: obtiene una farmacia en especifico
-        operationId: getPharmacy
-        tags: 
-          - pharmacys
-        responses:
-          '200':
-            description: Información de la farmacia obtenida
-            content:
-              application/json:
-                example:
-                    idPharmacy: 12345
-                    name: "Simi Tech"
-                    dirección: "Av. tecnologico #123"
+      tags: 
+        - pharmacys
+      parameters: 
+        - name : idPharmacy
+          in: path
+          description: ID de la sucursal a consultar
+          required: true
+          schema:
+            type: integer
+          example: 123
+      summary: Obtiene una farmacia por su ID
+      description: obtiene una farmacia en especifico
+      operationId: getPharmacybyId
+      responses:
+        '200':
+          description: Información de la farmacia obtenida
+          content:
+            application/json:
+              example:
+                  idPharmacy: 12345
+                  name: "Simi Tech"
+                  dirección: "Av. tecnologico #123"
+        '404':
+          description: Farmacia no obtenidas
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      format: int32
+                      description: Código HTTP 404
+                    message:
+                      type: string
+                      description:  No se encuentran farmacia
+                      
     put:
       summary: Actualizar datos de una farmacia
       description: Actualizar los datos de una unica farmacia
@@ -251,7 +290,7 @@ paths:
     
   
           
-  /employees:
+  /employee:
     get:
       summary: Obetener todos los empleados
       description: obtiene todos los datos de los empleados
@@ -278,10 +317,25 @@ paths:
                     lastName: "Lee"
                     phone: "4424568932"
                     typeEmployee: "Cajero"
+        '404':
+          description: Empleados no obtenidos
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      format: int32
+                      description: Código HTTP 404
+                    message:
+                      type: string
+                      description:  No se encontro empleados
+                      
     post:      
       summary: registrar empleado
       description: registrar los datos de un nuevo empleado
-      operationId: createEmployee
+      operationId: createEmployees
       tags:
         - employees
       requestBody:
@@ -294,13 +348,21 @@ paths:
         '201':
           description: Nuevo empleado registrado correctamente
   
-  /employees/{idEmployee}:
+  /employee/{idEmployee}:
     get:
       summary: Obetener empleado por su ID
       description: obtiene la informacion de un empleado en especifico
-      operationId: getEmployee
+      operationId: getEmployeebyId
       tags: 
         - employees
+      parameters: 
+        - name : idEmployee
+          in: path
+          description: ID de empleado a consultar
+          required: true
+          schema:
+            type: integer
+          example: 123
       responses:
         '200':
           description: se obtubieron toda la informacion de los empleados
@@ -315,6 +377,21 @@ paths:
                   lastName: "Lee"
                   phone: "4424568932"
                   typeEmploye: "Cajero"
+        '404':
+          description: Empleado no encontrado
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      format: int32
+                      description: Código HTTP 404
+                    message:
+                      type: string
+                      description:  No se encuentra el empleado
+                      
     put:
       summary: Actualizar datos de un empleado
       description: Actualizar todos los datos de un empleado
