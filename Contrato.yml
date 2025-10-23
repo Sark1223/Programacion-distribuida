@@ -8,94 +8,58 @@ info:
     email: l22140765@queretaro.tecnm.mx
   license:
     name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html 
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: http//localhost:8080/api/v1
+  - url: http://localhost:8080/api/v1
     description: Ambiente local
-  - url: http//10.124.63.12:8080/api/v1
+  - url: http://10.124.63.12:8080/api/v1
     description: Ambiente de pruebas
-  - url: https//api.pharmacy.com/api/v1
-    description: Servidor de produccion
-    
+
 tags:
   - name: pharmacys
     description: "Administra cada una de las sucursales"
   - name: products
     description: "Administra los productos y sus cantidades"
   - name: employes
-    description: "Administra los clientes"
+    description: "Administra los empleados" 
   - name: sales
     description: "Administrador de ventas"
-    
+
 paths:
   /pharmacys:
     get:
       summary: Obtener información de todas las farmacias
-      description: obtiene todas las farmacias
+      description: Obtiene todas las farmacias
       operationId: getPharmacys
-      tags: 
+      tags:
         - pharmacys
       responses:
         '200':
-          description: se obtuvo toda la informacion de las farmacias
+          description: Se obtuvo toda la informacion de las farmacias
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pharmacy'
+                type: array 
+                items:
+                  $ref: '#/components/schemas/pharmacy'
               example:
-                  - idPharmacy: 12345
-                    name: "Simi Tech"
-                    dirección: "Av. tecnologico #123"
-                  - idPharmacy: 12345
-                    name: "Simi Tech"
-                    dirección: "Av. tecnologico #123"
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+                - idPharmacy: 12345
+                  name: "Simi Tech"
+                  address: "Av. tecnologico #123" 
+                - idPharmacy: 12346
+                  name: "Farma-Todo"
+                  address: "Calle Corregidora #50" 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
-        '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error401' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontraron farmacias."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-                    
+          $ref: '#/components/responses/Error500' 
+
     post:
-      summary: crear nueva farmacia
-      description: crear una nueva sucursal de nuestra cadena farmacias
+      summary: Crear nueva farmacia
+      description: Crear una nueva sucursal de nuestra cadena farmacias
       operationId: createPharmacy
       tags:
         - pharmacys
@@ -109,116 +73,55 @@ paths:
         '201':
           description: Sucursal registrada correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
   /pharmacys/{idPharmacy}:
     get:
-        summary: Obtiene una farmacia por su ID
-        description: obtiene una farmacia en especifico
-        operationId: getPharmacy
-        tags: 
-          - pharmacys
-        parameters: 
-        - name : idPharmacy
+      summary: Obtiene una farmacia por su ID
+      description: Obtiene una farmacia en especifico
+      operationId: getPharmacy
+      tags:
+        - pharmacys
+      parameters:
+        - name: idPharmacy
           in: path
-          description: ID de la sucursal a actualizar
+          description: ID de la sucursal a obtener
           required: true
           schema:
             type: integer
           example: 123
-        responses:
-          '200':
-            description: Información de la farmacia obtenida
-            content:
-              application/json:
-                example:
-                    idPharmacy: 12345
-                    name: "Simi Tech"
-                    dirección: "Av. tecnologico #123"
-          '400':
-            description: Solicitud incorrecta.
-            content:
-             application/json:
-                example:
-                  error: "Bad Request"
-                  message: "Parámetros de búsqueda inválidos."
-          '401':
-            description: No autorizado.
-            content:
-              application/json:
-                example:
-                  error: "Unauthorized"
-                  message: "Token de autenticación no válido o ausente."
-          '403':
-            description: Acceso prohibido.
-            content:
-              application/json:
-                example:
-                  error: "Forbidden"
-                  message: "No tienes permiso para acceder a esta información."
-          '404':
-            description: No encontrado.
-            content:
-              application/json:
-                example:
-                  error: "Not Found"
-                  message: "No existe la farmacia con esa ID."
-          '500':
-            description: Error interno del servidor.
-            content:
-              application/json:
-                example:
-                  error: "Internal Server Error"
-                  message: "Ocurrió un error inesperado."
-          '503':
-            description: Servicio no disponible.
-            content:
-              application/json:
-                example:
-                  error: "Service Unavailable"
-                  message: "El servicio está temporalmente fuera de servicio."
-                    
+      responses:
+        '200':
+          description: Información de la farmacia obtenida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pharmacy'
+              example:
+                idPharmacy: 12345
+                name: "Simi Tech"
+                address: "Av. tecnologico #123" 
+        '401':
+          $ref: '#/components/responses/Error401' 
+        '404':
+          $ref: '#/components/responses/Error404' 
+        '500':
+          $ref: '#/components/responses/Error500' 
+
     put:
       summary: Actualizar datos de una farmacia
       description: Actualizar los datos de una unica farmacia
       operationId: updatePharmacy
       tags:
         - pharmacys
-      parameters: 
-        - name : idPharmacy
+      parameters:
+        - name: idPharmacy
           in: path
           description: ID de la sucursal a actualizar
           required: true
@@ -235,56 +138,24 @@ paths:
         '201':
           description: Sucursal actualizada correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro la farmacia."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-    
+          $ref: '#/components/responses/Error500' 
+
     patch:
       summary: Actualizar un dato de una farmacia
       description: Actualizar un unico dato de una unica farmacia
       operationId: patchPharmacy
       tags:
         - pharmacys
-      parameters: 
-        - name : idPharmacy
+      parameters:
+        - name: idPharmacy
           in: path
           description: ID de la sucursal a actualizar
           required: true
@@ -297,55 +168,23 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/pharmacyPatch'
-            example: 
+            example:
               name: "Farmacia la cruz"
-              addres: "Calle La luz #13"
+              address: "Calle La luz #13" 
       responses:
         '201':
-          description: datos de sucursal actualizado correctamente
+          description: Datos de sucursal actualizado correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro la farmacia."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
     delete:
       summary: Eliminar sucursal
       description: Elimina una sucursal de farmacia
@@ -363,56 +202,22 @@ paths:
           example: 123
       responses:
         '200':
-          description: sucursal eliminada 
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          description: Sucursal eliminada
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro la farmacia."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
+          $ref: '#/components/responses/Error500' 
 
   /products:
     get:
       summary: Obtener información de todos los productos
-      description: obtiene todos los productos
+      description: Obtiene todos los productos
       operationId: getProducts
-      tags: 
+      tags:
         - products
       responses:
         '200':
@@ -420,65 +225,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/product'
+                type: array
+                items:
+                  $ref: '#/components/schemas/product'
               example:
-                  - productId: 1
-                    productTypeId: 12
-                    name: "Paracetamol"
-                    description: "Producto para aliviar el dolor y reducir la fiebre"
-                    price: 200.50
-                  - productId: 1
-                    productTypeId: 12
-                    name: "Paracetamol"
-                    description: "Producto para aliviar el dolor y reducir la fiebre"
-                    price: 200.50
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+                - productId: 1
+                  productTypeId: 12
+                  name: "Paracetamol"
+                  description: "Producto para aliviar el dolor y reducir la fiebre"
+                  price: 200.50
+                - productId: 2
+                  productTypeId: 12
+                  name: "Ibuprofeno"
+                  description: "Antiinflamatorio"
+                  price: 150.75
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
-        '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error401' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontraron productos."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-                
+          $ref: '#/components/responses/Error500' 
+
     post:
-      summary: crear nuevo producto
-      description: crear una nuevo producto en la farmacia
-      operationId: createtProduct
+      summary: Crear nuevo producto
+      description: Crear un nuevo producto en la farmacia
+      operationId: createProduct
       tags:
         - products
       requestBody:
@@ -489,52 +260,25 @@ paths:
               $ref: '#/components/schemas/product'
       responses:
         '201':
-          description: Producto registrada correctamente
+          description: Producto registrado correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
-  /products/{productId}:      
+          $ref: '#/components/responses/Error500' 
+
+  /products/{productId}:
     put:
-      summary: Actualizar datos de una farmacia
-      description: Actualizar los datos de una unica farmacia
+      summary: Actualizar datos de un producto
+      description: Actualizar los datos de un unico producto
       operationId: updateProduct
       tags:
         - products
-      parameters: 
-        - name : productId
+      parameters:
+        - name: productId
           in: path
           description: ID del producto a actualizar
           required: true
@@ -551,58 +295,26 @@ paths:
         '201':
           description: Producto actualizado correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el producto."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-    
+          $ref: '#/components/responses/Error500' 
+
     patch:
-      summary: Actualizar un dato de una farmacia
-      description: Actualizar un unico dato de una unica farmacia
+      summary: Actualizar un dato de un producto
+      description: Actualizar un unico dato de un unico producto
       operationId: patchProduct
       tags:
         - products
-      parameters: 
-        - name : productId
+      parameters:
+        - name: productId
           in: path
-          description: ID de la sucursal a actualizar
+          description: ID del producto a actualizar
           required: true
           schema:
             type: integer
@@ -613,58 +325,25 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/productPatch'
-            example: 
-              productId: 123
+            example:
               price: 222.44
       responses:
         '201':
-          description: datos de producto actualizados correctamente
+          description: Datos de producto actualizados correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el producto."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
     delete:
       summary: Eliminar producto
-      description: Elimina una producto
+      description: Elimina un producto
       operationId: deleteProduct
       tags:
         - products
@@ -679,123 +358,55 @@ paths:
           example: 123
       responses:
         '200':
-          description: producto eliminado     
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          description: Producto eliminado
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el producto."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
   /employes:
     get:
-      summary: Obetener todos los empleados
-      description: obtiene todos los datos de los empleados
+      summary: Obtener todos los empleados
+      description: Obtiene todos los datos de los empleados
       operationId: getEmployes
-      tags: 
+      tags:
         - employes
       responses:
         '200':
-          description: se obtubieron toda la informacion de los empleados
+          description: Se obtuvieron toda la informacion de los empleados
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/employe'
+                type: array # Corregido: Debe ser un array de empleados
+                items:
+                  $ref: '#/components/schemas/employe'
               example:
-                  - idEmploye: 123
-                    idPharmacy: 234
-                    name: "Bartolomeo"
-                    lastName: "Lee"
-                    phone: "4424568932"
-                    typeEmploye: "Cajero"
-                  - idEmploye: 123
-                    idPharmacy: 2
-                    name: "Pepe"
-                    lastName: "Lee"
-                    phone: "4424568932"
-                    typeEmploye: "Cajero"
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+                - idEmploye: 123
+                  idPharmacy: 234
+                  name: "Bartolomeo"
+                  lastName: "Lee"
+                  phone: "4424568932"
+                  typeEmploye: 1
+                - idEmploye: 124
+                  idPharmacy: 234
+                  name: "Pepe"
+                  lastName: "Lara"
+                  phone: "4424568933"
+                  typeEmploye: 2
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
-        '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error401'
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontraron empleados."
+          $ref: '#/components/responses/Error404'
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-                
-    post:      
-      summary: registrar empleado
-      description: registrar los datos de un nuevo empleado
+          $ref: '#/components/responses/Error500'
+
+    post:
+      summary: Registrar empleado
+      description: Registrar los datos de un nuevo empleado
       operationId: createEmploye
       tags:
         - employes
@@ -809,123 +420,60 @@ paths:
         '201':
           description: Nuevo empleado registrado correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-  
+          $ref: '#/components/responses/Error500' 
+
   /employes/{idEmploye}:
     get:
-      summary: Obetener empleado por su ID
-      description: obtiene la informacion de un empleado en especifico
+      summary: Obtener empleado por su ID
+      description: Obtiene la informacion de un empleado en especifico
       operationId: getEmploye
-      tags: 
+      tags:
         - employes
-      parameters: 
-        - name : idEmploye
+      parameters:
+        - name: idEmploye
           in: path
-          description: ID de cliente a actualizar
+          description: ID de empleado a obtener
           required: true
           schema:
             type: integer
           example: 123
       responses:
         '200':
-          description: se obtubieron toda la informacion de los empleados
+          description: Se obtuvo toda la informacion del empleado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/employe'
               example:
-                  idEmploye: 123
-                  idPharmacy: 234
-                  name: "Bartolomeo"
-                  lastName: "Lee"
-                  phone: "4424568932"
-                  typeEmploye: "Cajero"
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+                idEmploye: 123
+                idPharmacy: 234
+                name: "Bartolomeo"
+                lastName: "Lee"
+                phone: "4424568932"
+                typeEmploye: 1
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
-        '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error401' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el empleado."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-                  
+          $ref: '#/components/responses/Error500' 
+
     put:
       summary: Actualizar datos de un empleado
       description: Actualizar todos los datos de un empleado
       operationId: updateEmploye
       tags:
         - employes
-      parameters: 
-        - name : idEmploye
+      parameters:
+        - name: idEmploye
           in: path
-          description: ID de cliente a actualizar
+          description: ID de empleado a actualizar
           required: true
           schema:
             type: integer
@@ -940,56 +488,24 @@ paths:
         '201':
           description: Datos de empleado actualizados
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el empleado."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-    
+          $ref: '#/components/responses/Error500' 
+
     patch:
       summary: Actualizar dato de empleado
       description: Actualizar un unico dato de un empleado
       operationId: patchEmploye
       tags:
         - employes
-      parameters: 
-        - name : idEmploye
+      parameters:
+        - name: idEmploye
           in: path
           description: ID de empleado a actualizar dato
           required: true
@@ -1002,55 +518,23 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/employePatch'
-            example: 
+            example:
               name: "Vartolomeo"
-              last_name: "Bell"
+              lastName: "Bell"
       responses:
         '200':
           description: Dato de empleado actualizado
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el empleado."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
     delete:
       summary: Eliminar empleado
       description: Elimina empleado
@@ -1068,56 +552,22 @@ paths:
           example: 123
       responses:
         '200':
-          description: empleado eliminado exitosamente
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          description: Empleado eliminado exitosamente
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro el empleado."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-    
+          $ref: '#/components/responses/Error500' 
+
   /sales:
     get:
       summary: Obtener información de todas las ventas de todas las farmacias
-      description: obtiene todas las ventas de todas las farmacias
+      description: Obtiene todas las ventas de todas las farmacias
       operationId: getSales
-      tags: 
+      tags:
         - sales
       responses:
         '200':
@@ -1125,79 +575,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/sale'
+                type: array 
+                items:
+                  $ref: '#/components/schemas/sale'
               example:
-                  - saleId: 123
-                    saleDate: "31/12/2025 16:12:21"
-                    subTotal: 22222.10
-                    iva: 8.22
-                    total: 22222.10
-                    pharmacyId: 123
-                    employeId: 123
-                    sale-product:
-                      - saleId: 123
-                        productId: 123
-                        quantity: 10
-                      - saleId: 123
-                        productId: 123
-                        quantity: 5
-                  - saleId: 123
-                    saleDate: "31/12/2025 16:12:21"
-                    subTotal: 22222.10
-                    iva: 8.22
-                    total: 22222.10
-                    pharmacyId: 123
-                    employeId: 123
-                    sale-product:
-                      - saleId: 123
-                        productId: 123
-                        quantity: 10
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+                - saleId: 123
+                  saleDate: "31/12/2025 16:12:21"
+                  subTotal: 22222.10
+                  iva: 8.22
+                  total: 22222.10
+                  pharmacyId: 123
+                  employeId: 123
+                  products: 
+                    - saleId: 123
+                      productId: 123
+                      quantity: 10
+                    - saleId: 123
+                      productId: 124
+                      quantity: 5
+                - saleId: 124
+                  saleDate: "31/12/2025 17:00:00"
+                  subTotal: 1000.00
+                  iva: 160.00
+                  total: 1160.00
+                  pharmacyId: 124
+                  employeId: 124
+                  products:
+                    - saleId: 124
+                      productId: 1
+                      quantity: 2
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
-        '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error401' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontraron ventas."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-                  
+          $ref: '#/components/responses/Error500' 
+
     post:
-      summary: crear nueva venta
-      description: crear una nueva venta en una farmacia
+      summary: Crear nueva venta
+      description: Crear una nueva venta en una farmacia
       operationId: createSale
       tags:
         - sales
@@ -1211,49 +627,22 @@ paths:
         '201':
           description: Venta registrada correctamente
         '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          $ref: '#/components/responses/Error400' 
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
   /sales/{idPharmacy}:
     get:
-        summary: Obtiene las ventas por ID de farmacia
-        description: obtine ventas por farmacia
-        operationId: getSalesByPharmacy
-        tags: 
-          - sales
-        parameters:
+      summary: Obtiene las ventas por ID de farmacia
+      description: Obtiene ventas por farmacia
+      operationId: getSalesByPharmacy
+      tags:
+        - sales
+      parameters:
         - name: idPharmacy
           in: path
           description: ID de farmacia a obtener ventas
@@ -1264,73 +653,41 @@ paths:
             minimum: 1
             maximum: 2147483647
           example: 123
-        responses:
-          '200':
-            description: Información de las ventas obtenida
-            content:
-              application/json:
-                example:
-                  - saleId: 123
-                    saleDate: "31/12/2025 16:12:21"
-                    subTotal: 22222.10
-                    iva: 8.22
-                    total: 22222.10
-                    pharmacyId: 123
-                    employeId: 123
-                  - saleId: 123
-                    saleDate: "31/12/2025 16:12:21"
-                    subTotal: 22222.10
-                    iva: 8.22
-                    total: 22222.10
-                    pharmacyId: 123
-                    employeId: 123
-          '400':
-            description: Solicitud incorrecta.
-            content:
-              application/json:
-                example:
-                  error: "Bad Request"
-                  message: "Parámetros de búsqueda inválidos."
-          '401':
-            description: No autorizado.
-            content:
-              application/json:
-                example:
-                  error: "Unauthorized"
-                  message: "Token de autenticación no válido o ausente."
-          '403':
-            description: Acceso prohibido.
-            content:
-              application/json:
-                example:
-                  error: "Forbidden"
-                  message: "No tienes permiso para acceder a esta información."
-          '404':
-            description: No encontrado.
-            content:
-              application/json:
-                example:
-                  error: "Not Found"
-                  message: "No se encontro la venta."
-          '500':
-            description: Error interno del servidor.
-            content:
-              application/json:
-                example:
-                  error: "Internal Server Error"
-                  message: "Ocurrió un error inesperado."
-          '503':
-            description: Servicio no disponible.
-            content:
-              application/json:
-                example:
-                  error: "Service Unavailable"
-                  message: "El servicio está temporalmente fuera de servicio."
+      responses:
+        '200':
+          description: Información de las ventas obtenida
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/sale'
+              example:
+                - saleId: 123
+                  saleDate: "31/12/2025 16:12:21"
+                  subTotal: 22222.10
+                  iva: 8.22
+                  total: 22222.10
+                  pharmacyId: 123
+                  employeId: 123
+                - saleId: 125
+                  saleDate: "31/12/2025 18:12:21"
+                  subTotal: 500.00
+                  iva: 80.00
+                  total: 580.00
+                  pharmacyId: 123
+                  employeId: 123
+        '401':
+          $ref: '#/components/responses/Error401' 
+        '404':
+          $ref: '#/components/responses/Error404' 
+        '500':
+          $ref: '#/components/responses/Error500' 
 
   /sales/{saleId}:
     delete:
       summary: Eliminar venta por id
-      description: Elimina una sucursal de farmacia
+      description: Elimina una venta por su ID
       operationId: deleteSale
       tags:
         - sales
@@ -1347,55 +704,21 @@ paths:
           example: 123
       responses:
         '200':
-          description: venta eliminada exitosamente
-        '400':
-          description: Solicitud incorrecta.
-          content:
-            application/json:
-              example:
-                error: "Bad Request"
-                message: "Parámetros de búsqueda inválidos."
+          description: Venta eliminada exitosamente
         '401':
-          description: No autorizado.
-          content:
-            application/json:
-              example:
-                error: "Unauthorized"
-                message: "Token de autenticación no válido o ausente."
+          $ref: '#/components/responses/Error401' 
         '403':
-          description: Acceso prohibido.
-          content:
-            application/json:
-              example:
-                error: "Forbidden"
-                message: "No tienes permiso para acceder a esta información."
+          $ref: '#/components/responses/Error403' 
         '404':
-          description: No encontrado.
-          content:
-            application/json:
-              example:
-                error: "Not Found"
-                message: "No se encontro la venta."
+          $ref: '#/components/responses/Error404' 
         '500':
-          description: Error interno del servidor.
-          content:
-            application/json:
-              example:
-                error: "Internal Server Error"
-                message: "Ocurrió un error inesperado."
-        '503':
-          description: Servicio no disponible.
-          content:
-            application/json:
-              example:
-                error: "Service Unavailable"
-                message: "El servicio está temporalmente fuera de servicio."
-          
+          $ref: '#/components/responses/Error500' 
+
 components:
   schemas:
     pharmacy:
       type: object
-      required: 
+      required:
         - idPharmacy
         - name
         - address
@@ -1416,7 +739,7 @@ components:
           minLength: 20
           maxLength: 50
           example: "Calle Rosales #65"
-      
+
     pharmacyPatch:
       type: object
       properties:
@@ -1430,16 +753,16 @@ components:
           minLength: 20
           maxLength: 50
           example: "Calle La luz #13"
-          
+
     employe:
       type: object
       required:
-        - employeId
-        - pharmacyId
+        - idEmploye
+        - idPharmacy
         - name
         - lastName
         - phone
-        - typeClient
+        - typeEmploye 
       properties:
         idEmploye:
           type: integer
@@ -1475,8 +798,8 @@ components:
           format: int32
           minimum: 1
           maximum: 2147483647
-          example: 123
-      
+          example: 1
+
     employePatch:
       type: object
       properties:
@@ -1495,7 +818,6 @@ components:
       type: object
       required:
         - productId
-        - pharmacyId
         - productTypeId
         - name
         - price
@@ -1523,84 +845,84 @@ components:
           example: "Producto para aliviar el dolor y reducir la fiebre"
         price:
           type: number
+          format: double 
           pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$'
-          minLength: 1
-          maxLength: 18
-          example: 22222.10
-      
+          example: 200.50
+
     productPatch:
       type: object
-      required:
-        - productId
-        - price
       properties:
-        productId:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 2147483647
-          example: 123
         price:
           type: number
+          format: double
           pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$'
-          minLength: 1
-          maxLength: 18
-          example: 22222.10
+          example: 222.44
+        description:
+          type: string
+          example: "Nueva descripción del producto"
 
     sale:
       type: object
-      required: 
+      required:
         - saleId
         - saleDate
         - subTotal
         - iva
         - total
         - employeId
+        - pharmacyId 
+        - products
       properties:
         saleId:
           type: integer
           format: int32
           minimum: 1
-          maximum: 999
+          maximum: 2147483647 
           example: 123
         saleDate:
           type: string
+          format: date-time 
           pattern: '^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4} ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$'
           minLength: 19
-          maxLength: 30
+          maxLength: 19
           example: "31/12/2025 16:12:21"
         subTotal:
           type: number
+          format: double
           pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$'
-          minLength: 1
-          maxLength: 18
           example: 22222.10
         iva:
           type: number
-          pattern: '^[0-9]{1,3}(?:\.[0-9]{1,2})?$'
-          minLength: 1
-          maxLength: 5
-          example: 8.22
+          format: double
+          pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$' 
+          example: 3555.54
         total:
           type: number
-          pattern: '^[0-9]{1,3}(?:\.[0-9]{1,2})?$'
-          minLength: 1
-          maxLength: 18
-          example: 22222.10
+          format: double
+          pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$' 
+          example: 25777.64
+        pharmacyId: 
+          type: integer
+          format: int32
+          description: ID de la farmacia donde se realizó la venta
+          minimum: 1
+          maximum: 2147483647
+          example: 123
         employeId:
           type: integer
           format: int32
+          description: ID del empleado que realizó la venta
           minimum: 1
-          maximum: 999
+          maximum: 2147483647 
           example: 123
         products:
           type: array
           items:
             $ref: '#/components/schemas/sale-product'
-    
+
     sale-product:
       type: object
-      required: 
+      required:
         - saleId
         - productId
         - quantity
@@ -1609,13 +931,13 @@ components:
           type: integer
           format: int32
           minimum: 1
-          maximum: 999
+          maximum: 2147483647 
           example: 123
         productId:
           type: integer
           format: int32
           minimum: 1
-          maximum: 999
+          maximum: 2147483647  
           example: 123
         quantity:
           type: integer
@@ -1623,4 +945,101 @@ components:
           minimum: 1
           maximum: 9999
           example: 10
-      
+
+    # --- Esquema Base de Error ---
+    Error:
+      type: object
+      description: Respuesta de error estándar
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Código de error
+          example: "INVALID_CLIENT_ID"
+        message:
+          type: string
+          description: Mensaje de error 
+          example: "El ID del cliente debe ser entero numerico"
+        details:
+          type: object
+          description: Detalles adicionales del error
+          additionalProperties: true
+
+    # --- Esquemas de Error Específicos (40x, 50x) ---
+    Error400BadRequest:
+      description: "Error 400 - Solicitud incorrecta. La solicitud no pudo ser entendida por el servidor debido a una sintaxis malformada, como datos JSON inválidos o parámetros faltantes."
+      allOf:
+        - $ref: '#/components/schemas/Error'
+      example:
+        code: "VALIDATION_ERROR"
+        message: "Los datos proporcionados no son válidos."
+        details:
+          field: "fecha"
+          issue: "El formato de la fecha no es válido."
+
+    Error401Unauthorized:
+      description: "Error 401 - No autorizado. La solicitud requiere autenticación de usuario. El cliente debe autenticarse para obtener la respuesta solicitada."
+      allOf:
+        - $ref: '#/components/schemas/Error'
+      example:
+        code: "AUTH_TOKEN_MISSING"
+        message: "Se requiere un token de autenticación."
+
+    Error403Forbidden:
+      description: "Error 403 - Prohibido. El servidor entendió la solicitud, pero se niega a autorizarla. El cliente no tiene permisos de acceso al contenido."
+      allOf:
+        - $ref: '#/components/schemas/Error'
+      example:
+        code: "INSUFFICIENT_PERMISSIONS"
+        message: "No tienes permiso para realizar esta acción."
+
+    Error404NotFound:
+      description: "Error 404 - No encontrado. El servidor no pudo encontrar el recurso solicitado."
+      allOf:
+        - $ref: '#/components/schemas/Error'
+      example:
+        code: "RESOURCE_NOT_FOUND"
+        message: "El recurso solicitado no fue encontrado."
+
+    Error500InternalServerError:
+      description: "Error 500 - Error interno del servidor. El servidor encontró una condición inesperada que le impidió cumplir con la solicitud."
+      allOf:
+        - $ref: '#/components/schemas/Error'
+      example:
+        code: "INTERNAL_SERVER_ERROR"
+        message: "Ocurrió un error inesperado en el servidor."
+
+  # --- Componentes de Respuestas Reutilizables ---
+  responses:
+    Error400:
+      description: Solicitud incorrecta
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400BadRequest'
+    Error401:
+      description: No autorizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Unauthorized'
+    Error403:
+      description: Prohibido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error403Forbidden'
+    Error404:
+      description: No encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error404NotFound'
+    Error500:
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500InternalServerError'
