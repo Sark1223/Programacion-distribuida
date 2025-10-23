@@ -50,6 +50,49 @@ paths:
                   - idPharmacy: 12345
                     name: "Simi Tech"
                     dirección: "Av. tecnologico #123"
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontraron farmacias."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
+                    
     post:
       summary: crear nueva farmacia
       description: crear una nueva sucursal de nuestra cadena farmacias
@@ -65,6 +108,41 @@ paths:
       responses:
         '201':
           description: Sucursal registrada correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
   /pharmacys/{idPharmacy}:
     get:
@@ -90,6 +168,49 @@ paths:
                     idPharmacy: 12345
                     name: "Simi Tech"
                     dirección: "Av. tecnologico #123"
+          '400':
+            description: Solicitud incorrecta.
+            content:
+             application/json:
+                example:
+                  error: "Bad Request"
+                  message: "Parámetros de búsqueda inválidos."
+          '401':
+            description: No autorizado.
+            content:
+              application/json:
+                example:
+                  error: "Unauthorized"
+                  message: "Token de autenticación no válido o ausente."
+          '403':
+            description: Acceso prohibido.
+            content:
+              application/json:
+                example:
+                  error: "Forbidden"
+                  message: "No tienes permiso para acceder a esta información."
+          '404':
+            description: No encontrado.
+            content:
+              application/json:
+                example:
+                  error: "Not Found"
+                  message: "No existe la farmacia con esa ID."
+          '500':
+            description: Error interno del servidor.
+            content:
+              application/json:
+                example:
+                  error: "Internal Server Error"
+                  message: "Ocurrió un error inesperado."
+          '503':
+            description: Servicio no disponible.
+            content:
+              application/json:
+                example:
+                  error: "Service Unavailable"
+                  message: "El servicio está temporalmente fuera de servicio."
+                    
     put:
       summary: Actualizar datos de una farmacia
       description: Actualizar los datos de una unica farmacia
@@ -113,6 +234,48 @@ paths:
       responses:
         '201':
           description: Sucursal actualizada correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro la farmacia."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
     
     patch:
       summary: Actualizar un dato de una farmacia
@@ -140,6 +303,48 @@ paths:
       responses:
         '201':
           description: datos de sucursal actualizado correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro la farmacia."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
     delete:
       summary: Eliminar sucursal
@@ -159,6 +364,48 @@ paths:
       responses:
         '200':
           description: sucursal eliminada 
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro la farmacia."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
 
   /products:
     get:
@@ -185,6 +432,49 @@ paths:
                     name: "Paracetamol"
                     description: "Producto para aliviar el dolor y reducir la fiebre"
                     price: 200.50
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontraron productos."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
+                
     post:
       summary: crear nuevo producto
       description: crear una nuevo producto en la farmacia
@@ -200,6 +490,42 @@ paths:
       responses:
         '201':
           description: Producto registrada correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
+          
   /products/{productId}:      
     put:
       summary: Actualizar datos de una farmacia
@@ -224,6 +550,48 @@ paths:
       responses:
         '201':
           description: Producto actualizado correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el producto."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
     
     patch:
       summary: Actualizar un dato de una farmacia
@@ -251,6 +619,48 @@ paths:
       responses:
         '201':
           description: datos de producto actualizados correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el producto."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
     delete:
       summary: Eliminar producto
@@ -269,7 +679,49 @@ paths:
           example: 123
       responses:
         '200':
-          description: producto eliminado          
+          description: producto eliminado     
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el producto."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
   /employes:
     get:
@@ -298,6 +750,49 @@ paths:
                     lastName: "Lee"
                     phone: "4424568932"
                     typeEmploye: "Cajero"
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontraron empleados."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
+                
     post:      
       summary: registrar empleado
       description: registrar los datos de un nuevo empleado
@@ -313,6 +808,41 @@ paths:
       responses:
         '201':
           description: Nuevo empleado registrado correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
   
   /employes/{idEmploye}:
     get:
@@ -343,6 +873,49 @@ paths:
                   lastName: "Lee"
                   phone: "4424568932"
                   typeEmploye: "Cajero"
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el empleado."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
+                  
     put:
       summary: Actualizar datos de un empleado
       description: Actualizar todos los datos de un empleado
@@ -366,6 +939,48 @@ paths:
       responses:
         '201':
           description: Datos de empleado actualizados
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el empleado."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
     
     patch:
       summary: Actualizar dato de empleado
@@ -393,6 +1008,48 @@ paths:
       responses:
         '200':
           description: Dato de empleado actualizado
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el empleado."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
     delete:
       summary: Eliminar empleado
@@ -412,6 +1069,48 @@ paths:
       responses:
         '200':
           description: empleado eliminado exitosamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro el empleado."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
     
   /sales:
     get:
@@ -453,6 +1152,48 @@ paths:
                       - saleId: 123
                         productId: 123
                         quantity: 10
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontraron ventas."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
                   
     post:
       summary: crear nueva venta
@@ -469,6 +1210,41 @@ paths:
       responses:
         '201':
           description: Venta registrada correctamente
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
   /sales/{idPharmacy}:
     get:
@@ -508,6 +1284,48 @@ paths:
                     total: 22222.10
                     pharmacyId: 123
                     employeId: 123
+          '400':
+            description: Solicitud incorrecta.
+            content:
+              application/json:
+                example:
+                  error: "Bad Request"
+                  message: "Parámetros de búsqueda inválidos."
+          '401':
+            description: No autorizado.
+            content:
+              application/json:
+                example:
+                  error: "Unauthorized"
+                  message: "Token de autenticación no válido o ausente."
+          '403':
+            description: Acceso prohibido.
+            content:
+              application/json:
+                example:
+                  error: "Forbidden"
+                  message: "No tienes permiso para acceder a esta información."
+          '404':
+            description: No encontrado.
+            content:
+              application/json:
+                example:
+                  error: "Not Found"
+                  message: "No se encontro la venta."
+          '500':
+            description: Error interno del servidor.
+            content:
+              application/json:
+                example:
+                  error: "Internal Server Error"
+                  message: "Ocurrió un error inesperado."
+          '503':
+            description: Servicio no disponible.
+            content:
+              application/json:
+                example:
+                  error: "Service Unavailable"
+                  message: "El servicio está temporalmente fuera de servicio."
 
   /sales/{saleId}:
     delete:
@@ -530,7 +1348,48 @@ paths:
       responses:
         '200':
           description: venta eliminada exitosamente
-          
+        '400':
+          description: Solicitud incorrecta.
+          content:
+            application/json:
+              example:
+                error: "Bad Request"
+                message: "Parámetros de búsqueda inválidos."
+        '401':
+          description: No autorizado.
+          content:
+            application/json:
+              example:
+                error: "Unauthorized"
+                message: "Token de autenticación no válido o ausente."
+        '403':
+          description: Acceso prohibido.
+          content:
+            application/json:
+              example:
+                error: "Forbidden"
+                message: "No tienes permiso para acceder a esta información."
+        '404':
+          description: No encontrado.
+          content:
+            application/json:
+              example:
+                error: "Not Found"
+                message: "No se encontro la venta."
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              example:
+                error: "Internal Server Error"
+                message: "Ocurrió un error inesperado."
+        '503':
+          description: Servicio no disponible.
+          content:
+            application/json:
+              example:
+                error: "Service Unavailable"
+                message: "El servicio está temporalmente fuera de servicio."
           
 components:
   schemas:
@@ -764,3 +1623,4 @@ components:
           minimum: 1
           maximum: 9999
           example: 10
+      
