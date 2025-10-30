@@ -1243,7 +1243,7 @@ components:
               code: "SALE_DELETED"
               message: "Venta eliminada exitosamente"
 
-    # Respuestas de error (se mantienen igual)
+    # Respuestas de error
     Error400:
       description: Solicitud incorrecta
       content:
