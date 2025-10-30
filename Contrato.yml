@@ -230,14 +230,14 @@ paths:
                   $ref: '#/components/schemas/product'
               example:
                 - productId: 1
-                  productTypeId: 12
+                  productType: "Generico"
                   name: "Paracetamol"
                   description: "Producto para aliviar el dolor y reducir la fiebre"
                   price: 200.50
                 - productId: 2
-                  productTypeId: 12
-                  name: "Ibuprofeno"
-                  description: "Antiinflamatorio"
+                  productType: "Pescrito" 
+                  name: "Amoxicilina"
+                  description: "Para enfermedades infecciosas"
                   price: 150.75
         '401':
           $ref: '#/components/responses/Error401' 
@@ -390,13 +390,13 @@ paths:
                   name: "Bartolomeo"
                   lastName: "Lee"
                   phone: "4424568932"
-                  typeEmploye: 1
+                  typeEmploye: "Doctor"
                 - idEmploye: 124
                   idPharmacy: 234
                   name: "Pepe"
                   lastName: "Lara"
                   phone: "4424568933"
-                  typeEmploye: 2
+                  typeEmploye: "Cajero"
         '401':
           $ref: '#/components/responses/Error401'
         '404':
@@ -793,12 +793,10 @@ components:
           maxLength: 20
           example: "4424568932"
         typeEmploye:
-          description: Tipos de trabajadores de la tabla type_employe
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 2147483647
-          example: 1
+          type: string
+          enum: [Cajero, Doctor]
+          description: Tipo de producto asociado (Cajero, Doctor)
+          example: "Generico"
 
     employePatch:
       type: object
@@ -818,7 +816,7 @@ components:
       type: object
       required:
         - productId
-        - productTypeId
+        - productType
         - name
         - price
       properties:
@@ -828,13 +826,11 @@ components:
           minimum: 1
           maximum: 2147483647
           example: 123
-        productTypeId:
-          type: integer
-          format: int32
-          description: Llave foranea que referencia ID del tipo de producto
-          minimum: 1
-          maximum: 2147483647
-          example: 123
+        productType:
+          type: string
+          enum: [Generico, Prescrito]
+          description: Tipo de producto asociado (Generico, Prescrito)
+          example: "Generico"
         name:
           type: string
           minLength: 3
@@ -848,18 +844,17 @@ components:
           format: double 
           pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$'
           example: 200.50
-
-    productPatch:
-      type: object
-      properties:
-        price:
-          type: number
-          format: double
-          pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$'
-          example: 222.44
-        description:
-          type: string
-          example: "Nueva descripción del producto"
+        productPatch:
+          type: object
+          properties:
+            price:
+              type: number
+              format: double
+              pattern: '^[0-9]{1,16}(?:\.[0-9]{1,2})?$'
+              example: 222.44
+            description:
+              type: string
+              example: "Nueva descripción del producto"
 
     sale:
       type: object
